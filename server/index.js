@@ -37,7 +37,7 @@ if (cluster.isMaster) {
     const locals = { userName };
     const messageInfo = {
       email,
-      fromEmail: "info@ingsw.com",
+      fromEmail: "zzzuzz@gmail.com",
       fromName: "Star Wars",
       subject: "Checkout this awesome droids"
     };
@@ -51,6 +51,7 @@ if (cluster.isMaster) {
   });
 
   app.listen(PORT, function() {
+    console.log('Server running');
     console.error(`Node cluster worker ${process.pid}: listening on port ${PORT}`);
   });
 }

@@ -3,7 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 
 const sendEmail = (email, userName = "Anakin Skywalker") => {
-  return fetch("/api/send_email", {
+  return fetch("http://localhost:3000/api/send_email", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, userName })
@@ -11,7 +11,8 @@ const sendEmail = (email, userName = "Anakin Skywalker") => {
 };
 
 class App extends Component {
-  state = { email: "" };
+  state = { email: "" ,
+  username: ""};
 
   render() {
     return (
@@ -22,20 +23,30 @@ class App extends Component {
         </header>
         <p className="App-intro">
           <input
+            placeholder="email address to send to"
             onChange={ev => {
               this.setState({ email: ev.target.value });
             }}
             style={{ padding: "10px", fontSize: "1em" }}
           />
+
+          <input
+            placeholder="your username"
+            onChange={ev => {
+              this.setState({ username: ev.target.value });
+            }}
+            style={{ padding: "10px", fontSize: "1em" }}
+          />
+
           <button
             onClick={() => {
-              const { email } = this.state;
+              const { email, username } = this.state;
               if (email) {
-                sendEmail(email).then(({ message }) => {
-                  alert(message);
+                sendEmail(email, username).then(({ message }) => {
+                  alert(`Message: ${message} Email: ${email} Username: ${username}`);
                 });
               } else {
-                alert("Please add an email");
+                alert("Please add an email and username");
               }
             }}
           >
